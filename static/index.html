@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat with 3D Avatar Lip Sync</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Azure Speech SDK -->
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.154.0/build/three.module.js",
+            "three/examples/jsm/loaders/GLTFLoader.js": "https://unpkg.com/three@0.154.0/examples/jsm/loaders/GLTFLoader.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="main-container">
+        <!-- Avatar and Controls -->
+        <div id="avatar-container">
+            <!-- Dropdown for avatar selection -->
+<!-- Replace the current avatarSelector with two selectors -->
+        <select id="genderSelector">
+            <option value="" disabled selected>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        
+        <select id="avatarDropdown">
+            <option value="" disabled selected>Select Avatar</option>
+        </select>
+            <canvas id="avatarCanvas"></canvas>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <!-- Chatbox and Input -->
+        <div id="chat-container">
+            <div id="chatbox">
+                <!-- Messages appear here -->
+            </div>
+            <div id="input-container">
+                <input type="text" id="chatInput" placeholder="Type your message...">
+                <button id="sendBtn">Send</button>
+                <button id="sttBtn">🎤</button> <!-- New STT button -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
