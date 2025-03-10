@@ -53,7 +53,7 @@ async function requestMicrophonePermission() {
 // Initialize Azure STT
 async function initAzureSTT() {
     // Fetch the Azure Speech Key from the backend
-    const response = await fetch('http://localhost:8000/azure-key');
+    const response = await fetch('/azure-key');
     const data = await response.json();
     const azureSpeechKey = data.azure_key;
 
@@ -125,7 +125,7 @@ document.getElementById('sendBtn').onclick = async () => {
     // Log the values of text and selectedVoice before sending
     console.log({ text, voice: selectedVoice }); // Check what's being sent to the backend
     
-    const res = await fetch('http://localhost:8000/chat', {
+    const res = await fetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, voice: selectedVoice }) // Ensure 'voice' is included
