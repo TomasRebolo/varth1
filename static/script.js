@@ -322,7 +322,7 @@ document.getElementById("avatarDropdown").addEventListener("change", function(ev
     chatInput.value = '';
 
 
-    fetch('http://localhost:8000/chat', {
+    fetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, voice: selectedVoice }) // Send the selected voice
