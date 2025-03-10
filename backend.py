@@ -18,8 +18,8 @@ load_dotenv()  # Load environment variables from .env file
 # Azure configuration
 AZURE_SPEECH_KEY = os.getenv("AZURE_SPEECH_KEY")
 AZURE_REGION = os.getenv("AZURE_REGION")
-AZURE_BOT_ENDPOINT = os.getenv("AZURE_BOT_ENDPOINT")
-AZURE_BOT_KEY = os.getenv("AZURE_BOT_KEY")
+#AZURE_BOT_ENDPOINT = os.getenv("AZURE_BOT_ENDPOINT")
+#AZURE_BOT_KEY = os.getenv("AZURE_BOT_KEY")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
