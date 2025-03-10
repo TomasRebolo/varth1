@@ -137,7 +137,7 @@ document.getElementById('sendBtn').onclick = async () => {
     }
 
     const data = await res.json();
-    botAudioUrl = `http://localhost:8000${data.audio_url}`;
+    botAudioUrl = `${window.location.origin}${data.audio_url}`;
     botVisemeData = data.viseme_data;
 
     addMessage(data.bot_reply, 'bot-message');
@@ -333,7 +333,7 @@ document.getElementById("avatarDropdown").addEventListener("change", function(ev
         }
         return res.json();
     }).then(data => {
-        botAudioUrl = `http://localhost:8000${data.audio_url}`;
+        botAudioUrl = `${window.location.origin}${data.audio_url}`;
         botVisemeData = data.viseme_data;
 
         addMessage(data.bot_reply, 'bot-message');
