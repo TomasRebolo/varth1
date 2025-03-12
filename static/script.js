@@ -17,22 +17,27 @@ const femaleAvatars = ["avatar1.glb", "avatar3.glb", "avatar5.glb", "avatar7.glb
 
 // Define the mapping of avatars to voices
 const avatarToVoice = {
-    // Male Avatars
-    "avatar2.glb": "en-US-GuyNeural",       // Male 1 (Works)
-    "avatar4.glb": "en-US-ChristopherNeural", // Male 2 (Available)
-    "avatar6.glb": "en-US-BrandonNeural",    // Male 3 (Available)
-    "avatar8.glb": "en-US-DavisNeural",      // Male 4 (Available)
-    "avatar10.glb": "en-US-TonyNeural",      // Male 5 (Available)
-    "avatar12.glb": "en-US-RogerNeural",     // Male 6 (Available)
-    
+    // English Voices (Current setup)
+    "avatar2.glb": { "en": "en-US-GuyNeural", "pt": "pt-PT-DuarteNeural" },
+    "avatar4.glb": { "en": "en-US-ChristopherNeural", "pt": "pt-PT-DuarteNeural" },
+    "avatar6.glb": { "en": "en-US-BrandonNeural", "pt": "pt-PT-DuarteNeural" },
+    "avatar8.glb": { "en": "en-US-DavisNeural", "pt": "pt-PT-DuarteNeural" },
+    "avatar10.glb": { "en": "en-US-TonyNeural", "pt": "pt-PT-DuarteNeural" },
+    "avatar12.glb": { "en": "en-US-RogerNeural", "pt": "pt-PT-DuarteNeural" },
+
     // Female Avatars
-    "avatar1.glb": "en-US-JennyNeural",     // Female 1 (Works)
-    "avatar3.glb": "en-US-AriaNeural",      // Female 2 (Available)
-    "avatar5.glb": "en-US-SaraNeural",      // Female 3 (Available)
-    "avatar7.glb": "en-US-NancyNeural",     // Female 4 (Available)
-    "avatar9.glb": "en-US-MichelleNeural",  // Female 5 (Available)
-    "avatar11.glb": "en-US-JaneNeural"      // Female 6 (Available)
+    "avatar1.glb": { "en": "en-US-JennyNeural", "pt": "pt-PT-FernandaNeural" },
+    "avatar3.glb": { "en": "en-US-AriaNeural", "pt": "pt-PT-FernandaNeural" },
+    "avatar5.glb": { "en": "en-US-SaraNeural", "pt": "pt-PT-FernandaNeural" },
+    "avatar7.glb": { "en": "en-US-NancyNeural", "pt": "pt-PT-FernandaNeural" },
+    "avatar9.glb": { "en": "en-US-MichelleNeural", "pt": "pt-PT-FernandaNeural" },
+    "avatar11.glb": { "en": "en-US-JaneNeural", "pt": "pt-PT-FernandaNeural" }
 };
+
+// Function to get the selected language
+function getSelectedLanguage() {
+    return document.getElementById("languageSelector").value;
+}
 
 // Request microphone permission on page load
 async function requestMicrophonePermission() {
@@ -110,25 +115,24 @@ document.getElementById('sttBtn').onclick = async () => {
     }
 };
 
-// Chat functionality
+// Modify the chat sending logic to include the language
 document.getElementById('sendBtn').onclick = async () => {
     const chatInput = document.getElementById('chatInput');
     const text = chatInput.value.trim();
     const selectedAvatar = document.getElementById("avatarDropdown").value;
-    const selectedVoice = avatarToVoice[selectedAvatar]; // Ensure the voice is being selected correctly
+    const language = getSelectedLanguage(); // Get selected language
 
-    if (!text || !selectedVoice) return; // Prevent sending empty text or missing voice
+    if (!text || !selectedAvatar) return;
+
+    const selectedVoice = avatarToVoice[selectedAvatar][language]; // Select correct voice
 
     addMessage(text, 'user-message');
     chatInput.value = '';
 
-    // Log the values of text and selectedVoice before sending
-    console.log({ text, voice: selectedVoice }); // Check what's being sent to the backend
-    
     const res = await fetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, voice: selectedVoice }) // Ensure 'voice' is included
+        body: JSON.stringify({ text, voice: selectedVoice })
     });
 
     if (!res.ok) {
@@ -144,8 +148,6 @@ document.getElementById('sendBtn').onclick = async () => {
     const audioPlayer = document.getElementById('audioPlayer');
     audioPlayer.src = botAudioUrl;
     scrollChatToBottom();
-
-    // Automatically play the audio to start the lip sync
     audioPlayer.play();
 };
 
